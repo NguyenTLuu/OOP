@@ -12,7 +12,7 @@ public class University implements Serializable {
 
     public void outputToFile() {
         try {
-            FileOutputStream fos = new FileOutputStream("C:\\");
+            FileOutputStream fos = new FileOutputStream("C:\\EiuStaff.eiu");
             ObjectOutputStream oos = new ObjectOutputStream(fos);
             for (Staff staff : staffList)
                 oos.writeObject(staff);
@@ -26,7 +26,7 @@ public class University implements Serializable {
     public void importFromFile() {
         try {
             Staff staff;
-            FileInputStream fis = new FileInputStream("C:\\");
+            FileInputStream fis = new FileInputStream("C:\\EiuStaff.eiu");
             ObjectInputStream ois = new ObjectInputStream(fis);
             while ((staff = (Staff) ois.readObject()) != null) {
                 staffList.add(staff);
