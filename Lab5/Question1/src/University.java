@@ -1,3 +1,4 @@
+import java.io.*;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.Scanner;
@@ -8,16 +9,48 @@ public class University {
 
     static Scanner sc = new Scanner(System.in);
 
+    public void inputToFile() {
+        try {
+            FileOutputStream f = new FileOutputStream("C:\\Users\\trong\\OneDrive\\Documents\\GitHub\\OOP\\Lab5\\Question1\\student.data");
+            ObjectOutputStream oStream = new ObjectOutputStream(f);
+            for (Student student : students) {
+                oStream.writeObject(student);
+            }
+            oStream.close();
+        } catch (IOException e) {
+            System.out.println("Error Write file");
+        }
+    }
+
+    public void readFile() {
+        try {
+            Student st = null;
+            FileInputStream f = new FileInputStream("C:\\Users\\trong\\OneDrive\\Documents\\GitHub\\OOP\\Lab5\\Question1\\student.data"); // tao file f tro den student.dat
+            ObjectInputStream inStream = new ObjectInputStream(f);
+            while ((st = (Student) inStream.readObject()) != null) {
+                students.add(st);
+            }
+            inStream.close();
+        } catch (ClassNotFoundException e) {
+            System.out.println("Class not found");
+        } catch (IOException e) {
+            System.out.println("Error Read file");
+        }
+    }
+
+
     public void addUniversityStudent() {
         Student s = new UniversityStudent();
         s.inputStudent();
         students.add(s);
+        inputToFile();
     }
 
     public void addCollegeStudent() {
         Student s = new CollegeStudent();
         s.inputStudent();
         students.add(s);
+        inputToFile();
     }
 
     public void removeStudents() {
@@ -26,6 +59,9 @@ public class University {
         for (Student s : students) {
             if (s.getStudentNumber().equalsIgnoreCase(removeId))
                 students.remove(s);
+        }
+        for (Student s : students) {
+            inputToFile();
         }
     }
 
@@ -47,6 +83,7 @@ public class University {
 
     public void sortStudents() {
         Collections.sort(students, compareByType_Code);
+        inputToFile();
     }
 
     static Comparator<Student> compareByType_Code = new Comparator<Student>() {
@@ -68,8 +105,16 @@ public class University {
         System.out.print("Enter student name: ");
         String studentName = sc.nextLine();
         for (Student s : students) {
-            if (s.getFullName().toLowerCase().contains(studentName.toLowerCase()))
-                System.out.println(s.toString());
+            if (s.getFullName().toLowerCase().contains(studentName.toLowerCase())) {
+                try {
+                    FileOutputStream f = new FileOutputStream("C:\\Users\\trong\\OneDrive\\Documents\\GitHub\\OOP\\Lab5\\Question1\\Result.data");
+                    ObjectOutputStream oStream = new ObjectOutputStream(f);
+                    oStream.writeObject(s);
+                    oStream.close();
+                } catch (IOException e) {
+                    System.out.println("Error Write file");
+                }
+            }
         }
     }
 
@@ -85,6 +130,8 @@ public class University {
     }
 
     public void pickOption() {
+        Student s1 = new CollegeStudent();
+        Student s2 = new UniversityStudent();
         int option = 0;
         while (option < 8) {
             showMenu();
