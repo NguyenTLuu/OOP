@@ -21,7 +21,7 @@ public class SimpleInvestor implements Investor {
             System.out.println(" and change their strategy to " + Strategy.HedgingStrategies);
         } else {
             if (priceChange > 200) {
-                System.out.println(" and change their strategy to " + Strategy.Transactions);
+                System.out.println(" and change their strategy to " + Strategy.QuickTransactions);
 
             } else {
                 System.out.println(" and decide to do nothing ");

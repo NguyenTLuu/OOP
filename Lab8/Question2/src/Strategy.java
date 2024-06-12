@@ -1,4 +1,4 @@
-public enum EnumStrategy {
+public enum Strategy {
     MonitorOnly,
     QuickTransactions,
     HoldPositions,
